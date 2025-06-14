@@ -7,6 +7,7 @@ import spring_boot.demo.models.repository.test_repository;
 import spring_boot.demo.dtos.test_dto;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,8 +33,13 @@ public class test_service_implementation  implements testService {
     }
 
     @Override
-    public List<test> findAll() {
-        return test_repository.findAll();
+    public List<test_dto> findAll() {
+        List<test> result = test_repository.findAll();
+        List<test_dto> dtos = new ArrayList<>();
+        for (test dto : result) {
+            dtos.add(modelMapper.map(dto,test_dto.class));
+        }
+        return dtos;
     }
 
     @Override
@@ -44,12 +50,12 @@ public class test_service_implementation  implements testService {
     }
 
     @Override
-    public Optional<test> findById(Long id) {
-        return test_repository.findById(id);
+    public Optional<test_dto> findById(Long id) {
+        return test_repository.findById(id).map(entity -> modelMapper.map(entity, test_dto.class));
     }
 
     @Override
-    public Optional<test> findByName(String name) {
-        return test_repository.findByName(name);
+    public Optional<test_dto> findByName(String name) {
+        return test_repository.findByName(name).map(entity -> modelMapper.map(entity, test_dto.class));
     }
 }

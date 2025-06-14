@@ -8,8 +8,8 @@ import java.util.Optional;
 
 public interface testService {
     test save(test_dto test);
-    List<test> findAll();
+    List<test_dto> findAll();
     void delete(Long id);
-    Optional<test> findById(Long id);
-    Optional<test> findByName(String name);
+    Optional<test_dto> findById(Long id);
+    Optional<test_dto> findByName(String name);
 }
